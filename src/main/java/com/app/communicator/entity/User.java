@@ -26,6 +26,8 @@ public class User {
     private String surname;
     @Column(name = "avatar_url")
     private String avatarUrl;
+    @Column(name = "is_enabled")
+    private Boolean isEnabled;
 
     @OneToMany(mappedBy = "userContact", fetch = FetchType.EAGER)
     private Set<Contact> userContacts;
