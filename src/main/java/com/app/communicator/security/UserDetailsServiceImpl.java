@@ -23,7 +23,8 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         return userRepository
                 .findByUsername(username)
-                .map(userFromDb -> new User(
+                .map(userFromDb -> new CustomUser(
+                        userFromDb.getId(),
                         userFromDb.getUsername(),
                         userFromDb.getPassword(),
                         userFromDb.getIsEnabled(), true, true, true,
