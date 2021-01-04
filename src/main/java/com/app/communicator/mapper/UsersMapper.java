@@ -1,9 +1,7 @@
 package com.app.communicator.mapper;
 
-
 import com.app.communicator.dto.securityDto.RegisterUserDto;
 import com.app.communicator.entity.User;
-
 
 public interface UsersMapper {
 
