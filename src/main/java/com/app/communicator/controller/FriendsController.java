@@ -1,19 +1,12 @@
 package com.app.communicator.controller;
 
-import com.app.communicator.dto.ContactDataDto;
-import com.app.communicator.dto.securityDto.RefreshTokenDto;
-import com.app.communicator.dto.securityDto.TokensDto;
-import com.app.communicator.entity.User;
-import com.app.communicator.security.CustomUser;
+import com.app.communicator.dto.usersDto.UserDataDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import com.app.communicator.service.UserService;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/users")
@@ -24,19 +17,28 @@ public class FriendsController {
     private final UserService userService;
 
     @ResponseStatus(HttpStatus.OK)
-    @GetMapping("/{userid}/friends")
-    public List<ContactDataDto> getFriends(@PathVariable Long userid) {
-        return userService.getUserContacts(userid);
+    @GetMapping("/{userId}/friends")
+    public List<UserDataDto> getFriends(@PathVariable Long userId) {
+        return userService.getUserContacts(userId);
 
     }
+
+    @GetMapping("/{keyWord}")
     @ResponseStatus(HttpStatus.OK)
-    @DeleteMapping("/{userid}/friends/{friendid}")
-    public void removeFriend(@PathVariable Long userid, @PathVariable Long friendid) {
-        userService.removeFriend(userid,friendid);
+    public List<UserDataDto> getUsersByKeyword(@PathVariable String keyWord) {
+        return userService.getUsersByKeyword(keyWord);
     }
+
     @ResponseStatus(HttpStatus.OK)
-    @PostMapping("/{userid}/friends/{friendid}")
-    public void addFriend(@PathVariable Long userid, @PathVariable Long friendid) {
-        userService.addFriend(userid,friendid);
+    @DeleteMapping("/{userId}/friends/{friendId}")
+    public void removeFriend(@PathVariable Long userId, @PathVariable Long friendId) {
+        userService.removeFriend(userId, friendId);
+    }
+
+
+    @ResponseStatus(HttpStatus.OK)
+    @PostMapping("/{userId}/friends/{friendId}")
+    public void addFriend(@PathVariable Long userId, @PathVariable Long friendId) {
+        userService.addFriend(userId, friendId);
     }
 }

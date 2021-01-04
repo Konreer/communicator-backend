@@ -1,6 +1,6 @@
 package com.app.communicator.service;
 
-import com.app.communicator.dto.ContactDataDto;
+import com.app.communicator.dto.usersDto.UserDataDto;
 import com.app.communicator.entity.Contact;
 import com.app.communicator.entity.User;
 import com.app.communicator.repository.ContactRepository;
@@ -22,21 +22,21 @@ public class UserService {
 
     public boolean isIdConsistent(Long userid) {
         CustomUser user = (CustomUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        if (userid != user.getUserId()) {
-            throw new IllegalArgumentException("User Id not consisstent with Id within a token");
+        if (!userid.equals(user.getUserId())) {
+            throw new IllegalArgumentException("User Id not consistent with Id within a token");
         }
         return true;
     }
 
-    public List<ContactDataDto> getUserContacts(Long userId) {
+    public List<UserDataDto> getUserContacts(Long userId) {
         isIdConsistent(userId);
 
         return userRepository.findById(userId).orElseThrow(() -> new IllegalArgumentException("No user with such id")).getUserContacts()
                 .stream()
-                .map(contact -> ContactDataDto.builder()
-                        .contactId(contact.getUserContact().getId())
-                        .contactSurname(contact.getUserContact().getSurname())
-                        .contactName(contact.getUserContact().getName())
+                .map(contact -> UserDataDto.builder()
+                        .id(contact.getUserContact().getId())
+                        .surname(contact.getUserContact().getSurname())
+                        .name(contact.getUserContact().getName())
                         .avatarUrl(contact.getUserContact().getAvatarUrl())
                         .build())
                 .collect(Collectors.toList());
@@ -66,4 +66,16 @@ public class UserService {
 
     }
 
+    public List<UserDataDto> getUsersByKeyword(String keyWord) {
+        return userRepository.findAllByKeyword(keyWord)
+                .stream()
+                .map(user -> UserDataDto.builder()
+                        .id(user.getId())
+                        .name(user.getName())
+                        .surname(user.getSurname())
+                        .avatarUrl(user.getAvatarUrl())
+                        .build())
+                .collect(Collectors.toList());
+
+    }
 }

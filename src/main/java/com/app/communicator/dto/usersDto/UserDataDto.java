@@ -1,4 +1,4 @@
-package com.app.communicator.dto;
+package com.app.communicator.dto.usersDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -9,9 +9,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class ContactDataDto {
-    private String contactName;
-    private String contactSurname;
-    private Long contactId;
+public class UserDataDto {
+    private String name;
+    private String surname;
+    private Long id;
     private String avatarUrl;
 }
