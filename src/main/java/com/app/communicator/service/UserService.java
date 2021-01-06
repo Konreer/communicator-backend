@@ -29,7 +29,7 @@ public class UserService {
     }
 
     public List<ContactDataDto> getUserContacts(Long userId) {
-        isIdConsistent(userId);
+        //isIdConsistent(userId);
 
         return userRepository.findById(userId).orElseThrow(() -> new IllegalArgumentException("No user with such id")).getUserContacts()
                 .stream()

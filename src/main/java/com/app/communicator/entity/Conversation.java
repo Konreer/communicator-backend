@@ -1,9 +1,6 @@
 package com.app.communicator.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -22,11 +19,18 @@ public class Conversation {
 
     @ManyToOne
     @JoinColumn(name = "creator_id")
+    @EqualsAndHashCode.Exclude
     private User user;
 
     @OneToMany(mappedBy = "conversation", fetch = FetchType.EAGER)
+    @EqualsAndHashCode.Exclude
     private Set<Message> messages;
 
     @OneToMany(mappedBy = "conversation", fetch = FetchType.EAGER)
+    @EqualsAndHashCode.Exclude
     private Set<UserInConversation> userInConversation;
+
+    @Column(name = "converastion_name")
+    @EqualsAndHashCode.Exclude
+    private String conversationName;
 }
