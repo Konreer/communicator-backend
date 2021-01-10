@@ -20,7 +20,18 @@ public class FriendsController {
     @GetMapping("/{userId}/friends")
     public List<UserDataDto> getFriends(@PathVariable Long userId) {
         return userService.getUserContacts(userId);
+    }
 
+    @ResponseStatus(HttpStatus.OK)
+    @GetMapping("/{userId}/invitations")
+    public List<UserDataDto> getInvitations(@PathVariable Long userId) {
+        return userService.getUserInvitations(userId);
+    }
+
+    @ResponseStatus(HttpStatus.OK)
+    @PutMapping("/{userId}/invitations/{friendId}")
+    public Long acceptInvitation(@PathVariable Long userId, @PathVariable Long friendId) {
+        return userService.acceptInvitation(userId, friendId);
     }
 
     @GetMapping("/{keyWord}")
@@ -33,12 +44,5 @@ public class FriendsController {
     @DeleteMapping("/{userId}/friends/{friendId}")
     public void removeFriend(@PathVariable Long userId, @PathVariable Long friendId) {
         userService.removeFriend(userId, friendId);
-    }
-
-
-    @ResponseStatus(HttpStatus.OK)
-    @PostMapping("/{userId}/friends/{friendId}")
-    public void addFriend(@PathVariable Long userId, @PathVariable Long friendId) {
-        userService.addFriend(userId, friendId);
     }
 }

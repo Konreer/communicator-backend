@@ -1,9 +1,6 @@
 package com.app.communicator.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -21,9 +18,11 @@ public class UserInConversation {
 
     @ManyToOne
     @JoinColumn(name = "conv_id")
+    @EqualsAndHashCode.Exclude
     private Conversation conversation;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
+    @EqualsAndHashCode.Exclude
     private User user;
 }

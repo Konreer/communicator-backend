@@ -1,9 +1,6 @@
 package com.app.communicator.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -30,8 +27,10 @@ public class User {
     private Boolean isEnabled;
 
     @OneToMany(mappedBy = "userContact", fetch = FetchType.EAGER)
+    @EqualsAndHashCode.Exclude
     private Set<Contact> userContacts;
 
     @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
+    @EqualsAndHashCode.Exclude
     private Set<Conversation> userConversations;
 }

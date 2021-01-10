@@ -1,9 +1,6 @@
 package com.app.communicator.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -26,9 +23,11 @@ public class Message {
 
     @ManyToOne
     @JoinColumn(name = "owner_id")
+    @EqualsAndHashCode.Exclude
     private User messageOwner;
 
     @ManyToOne
     @JoinColumn(name = "conv_id")
+    @EqualsAndHashCode.Exclude
     private Conversation conversation;
 }
