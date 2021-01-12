@@ -16,6 +16,9 @@ public class Contact {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "is_accepted")
+    private Boolean isAccepted;
+
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
     @EqualsAndHashCode.Exclude
@@ -24,6 +27,7 @@ public class Contact {
     @ManyToOne(fetch = FetchType.EAGER)
     @EqualsAndHashCode.Exclude
     @JoinColumn(name = "his_contact")
+    @EqualsAndHashCode.Exclude
     private User userContact;
 
 }

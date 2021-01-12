@@ -4,6 +4,7 @@ import com.app.communicator.dto.securityDto.RefreshTokenDto;
 import com.app.communicator.dto.securityDto.TokensDto;
 import com.app.communicator.entity.User;
 import com.app.communicator.repository.UserRepository;
+import com.app.communicator.security.CustomUser;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import lombok.RequiredArgsConstructor;
@@ -13,6 +14,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
 import javax.crypto.SecretKey;
+import java.util.Collections;
 import java.util.Date;
 import java.util.Objects;
 
@@ -90,7 +92,13 @@ public class TokensService {
                 .orElseThrow(() -> new SecurityException("cannot find user from db"));
 
         return new UsernamePasswordAuthenticationToken(
-                userFromDb.getUsername(),
+                new CustomUser(
+                        userFromDb.getId(),
+                        userFromDb.getUsername(),
+                        userFromDb.getPassword(),
+                        userFromDb.getIsEnabled(), true, true, true,
+                        Collections.emptyList()
+                ),
                 null,
                 null);
     }
@@ -98,11 +106,11 @@ public class TokensService {
     public TokensDto parseTokenFromRefreshToken(RefreshTokenDto refreshTokenDto) {
         String token = refreshTokenDto.getToken();
 
-        if(Objects.isNull(token)) {
+        if (Objects.isNull(token)) {
             throw new SecurityException("Token is null");
         }
 
-        if(!isTokenValid((token))){
+        if (!isTokenValid((token))) {
             throw new SecurityException("Token is not valid");
         }
 

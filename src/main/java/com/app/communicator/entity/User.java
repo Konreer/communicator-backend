@@ -27,6 +27,7 @@ public class User {
     private Boolean isEnabled;
 
     @OneToMany(mappedBy = "userContact", fetch = FetchType.EAGER)
+    @EqualsAndHashCode.Exclude
     private Set<Contact> userContacts;
 
     @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
