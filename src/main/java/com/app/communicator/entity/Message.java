@@ -26,12 +26,10 @@ public class Message {
     @ManyToOne
     @EqualsAndHashCode.Exclude
     @JoinColumn(name = "owner_id")
-    @EqualsAndHashCode.Exclude
     private User messageOwner;
 
     @ManyToOne
     @EqualsAndHashCode.Exclude
     @JoinColumn(name = "conv_id")
-    @EqualsAndHashCode.Exclude
     private Conversation conversation;
 }

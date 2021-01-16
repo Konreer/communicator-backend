@@ -19,12 +19,6 @@ public class FriendSocketController {
     private final SimpMessagingTemplate simpMessagingTemplate;
     private final UserService userService;
 
-    @MessageMapping("/message")
-    public void greeting(String message){
-        System.out.println(message);
-        simpMessagingTemplate.convertAndSendToUser(String.valueOf(3), "/msg", message);
-    }
-
     @MessageMapping("/{userId}/friends/{friendId}")
     public void addFriend(@DestinationVariable Long userId, @DestinationVariable Long friendId, Principal principal) {
         System.out.println(principal.getName());

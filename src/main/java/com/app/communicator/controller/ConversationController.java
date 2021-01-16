@@ -1,6 +1,5 @@
 package com.app.communicator.controller;
 
-import com.app.communicator.dto.ContactDataDto;
 import com.app.communicator.dto.ConversationDto;
 import com.app.communicator.service.ConversationService;
 import lombok.RequiredArgsConstructor;

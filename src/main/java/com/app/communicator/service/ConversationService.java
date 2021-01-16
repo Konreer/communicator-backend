@@ -1,9 +1,7 @@
 package com.app.communicator.service;
 
-import com.app.communicator.dto.ContactDataDto;
 import com.app.communicator.dto.ConversationDto;
 import com.app.communicator.entity.*;
-import com.app.communicator.repository.ContactRepository;
 import com.app.communicator.repository.ConversationRepository;
 import com.app.communicator.repository.UserInConversationRepository;
 import com.app.communicator.repository.UserRepository;
@@ -24,13 +22,15 @@ public class ConversationService {
     private final UserInConversationRepository userInConversationRepository;
 
     public List<ConversationDto> getConversations(Long userId) {
-        //isIdConsistent(userId);
+        isIdConsistent(userId);
         return userInConversationRepository.findAllByUser_Id(userId).stream().map(
                 userInConversation -> ConversationDto
                         .builder()
                         .id(userInConversation.getConversation().getId())
                         .conversationName(generateConversationName(userInConversation.getConversation(), userId))
-                        .lastMessage(getLatestMessage(userInConversation.getConversation())).build())
+                        .lastMessage(getLatestMessage(userInConversation.getConversation()))
+                        .avatarUrl(getConversationPartnerAvatarURL(userInConversation.getConversation(), userId))
+                        .build())
                 .collect(Collectors.toList());
     }
 
@@ -44,6 +44,15 @@ public class ConversationService {
         if (conversation.getUserInConversation().size() == 2) {
             for (UserInConversation userInConversation : conversation.getUserInConversation()) {
                 if (!userInConversation.getUser().getId().equals(userId)) return userInConversation.getUser().getName() + ' ' + userInConversation.getUser().getSurname();
+            }
+        }
+        return "";
+    }
+
+    private String getConversationPartnerAvatarURL(Conversation conversation, Long userId) {
+        if (conversation.getUserInConversation().size() == 2) {
+            for (UserInConversation userInConversation : conversation.getUserInConversation()) {
+                if (!userInConversation.getUser().getId().equals(userId)) return userInConversation.getUser().getAvatarUrl();
             }
         }
         return "";

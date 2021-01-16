@@ -25,7 +25,6 @@ public class Contact {
     private User user;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @EqualsAndHashCode.Exclude
     @JoinColumn(name = "his_contact")
     @EqualsAndHashCode.Exclude
     private User userContact;

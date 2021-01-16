@@ -13,4 +13,5 @@ public class ConversationDto {
     Long id;
     String conversationName;
     String lastMessage;
+    String avatarUrl;
 }
