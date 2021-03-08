@@ -28,23 +28,28 @@ public class MessageController {
     private final MessageService messageService;
 
 
-    @ResponseStatus(HttpStatus.OK)
-    @PostMapping(value = "/chat/{userid}/{conversationid}", consumes = "application/json")
-    public List<MessageDto> getConversations(@PathVariable Long userid, @PathVariable Long conversationid, @RequestBody MessageDto message) {
-        return messageService.getMessagesForConversation(userid, conversationid);
-
-    }
+//    @ResponseStatus(HttpStatus.OK)
+//    @PostMapping(value = "/chat/{userid}/{conversationid}", consumes = "application/json")
+//    public List<MessageDto> getConversations(@PathVariable Long userid, @PathVariable Long conversationid, @RequestBody MessageDto message) {
+//        return messageService.getMessagesForConversation(userid, conversationid);
+//    }
 
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("/chat/{userid}/{conversationid}")
     public List<MessageDto> getConversations(@PathVariable Long userid, @PathVariable Long conversationid) {
-        return messageService.getMessagesForConversation(userid, conversationid);
+        List<MessageDto> test = messageService.getMessagesForConversation(userid, conversationid);
+        return test;
 
     }
 
-    @MessageMapping({"/message"})
-    public void greeting(String message) {
-        System.out.println("ODEBRALEM PENIS");
-        simpMessagingTemplate.convertAndSendToUser(String.valueOf(3), "/msg", ConversationDto.builder().id(1L).lastMessage("penis").avatarUrl("https://ocdn.eu/pulscms-transforms/1/LFmk9kuTURBXy9hYTdjMTMzMS0zMmVlLTQxN2YtODFiMS01YTM0NjI0YjhkMDkuanBlZ5GVAs0BigDDw4GhMAE").conversationName("nie wiem").build());
-    }
+//    @MessageMapping({"/message"})
+//    public void greeting(String message) {
+//        System.out.println("ODEBRALEM PENIS");
+//        simpMessagingTemplate.convertAndSendToUser(String.valueOf(3), "/msg", ConversationDto.builder().id(1L).lastMessage("penis").avatarUrl("https://ocdn.eu/pulscms-transforms/1/LFmk9kuTURBXy9hYTdjMTMzMS0zMmVlLTQxN2YtODFiMS01YTM0NjI0YjhkMDkuanBlZ5GVAs0BigDDw4GhMAE").conversationName("nie wiem").build());
+//    }
+
+//    @MessageMapping({"/message"})
+//    public void greeting(MessageDto messageDto) {
+//        messageService.sendMessageToUser(messageDto.getOwnerId(), messageDto.getConversationId(), messageDto);
+//    }
 }

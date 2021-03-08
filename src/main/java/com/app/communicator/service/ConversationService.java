@@ -35,7 +35,7 @@ public class ConversationService {
     }
 
     private String getLatestMessage(Conversation conversation) {
-        return conversation.getMessages().stream().min(Comparator.comparing(Message::getSendTime))
+        return conversation.getMessages().stream().max(Comparator.comparing(Message::getSendTime))
                 .get()
                 .getMessage();
     }
@@ -46,7 +46,13 @@ public class ConversationService {
                 if (!userInConversation.getUser().getId().equals(userId)) return userInConversation.getUser().getName() + ' ' + userInConversation.getUser().getSurname();
             }
         }
-        return "";
+        if (conversation.getConversationName() == null) {
+            String name = "Conversation with ";
+            for(UserInConversation user : conversation.getUserInConversation()){
+                name = name + user.getUser().getName() + ' ';
+            }
+        }
+        return  conversation.getConversationName();
     }
 
     private String getConversationPartnerAvatarURL(Conversation conversation, Long userId) {
@@ -55,7 +61,7 @@ public class ConversationService {
                 if (!userInConversation.getUser().getId().equals(userId)) return userInConversation.getUser().getAvatarUrl();
             }
         }
-        return "";
+        return null;
     }
 
 

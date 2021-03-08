@@ -1,4 +1,7 @@
 package com.app.communicator.dto;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -13,7 +16,7 @@ import java.time.LocalDateTime;
 public class MessageDto {
     private String text;
     private LocalDateTime date;
-    private Long messageId;
-    private Long onwerId;
+    private Long ownerId;
     private Long conversationId;
+    private String avatarUrl;
 }

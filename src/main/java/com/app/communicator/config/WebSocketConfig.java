@@ -2,6 +2,7 @@ package com.app.communicator.config;
 
 import com.app.communicator.dto.securityDto.MessageDto;
 import com.app.communicator.security.tokens.TokensService;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.messaging.Message;
@@ -33,6 +34,7 @@ import org.springframework.web.socket.messaging.*;
 public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
 
     private final TokensService tokensService;
+    private final ObjectMapper objectMapper;
 
     @Override
     public void configureMessageBroker(MessageBrokerRegistry config) {
@@ -66,7 +68,7 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
                         MessageDto messageDto = (MessageDto) getMessageConverter().fromMessage(message, MessageDto.class);
                         UsernamePasswordAuthenticationToken auth = tokensService.parseToken(messageDto.getAuthToken());
                         accessor.setUser(auth);
-                        return MessageBuilder.createMessage(messageDto.getMessage(), accessor.getMessageHeaders());
+                        return MessageBuilder.createMessage(objectMapper.writeValueAsString(messageDto.getMessage()), accessor.getMessageHeaders());
                     }
 
                     if(StompCommand.DISCONNECT == accessor.getCommand()){
