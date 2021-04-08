@@ -41,15 +41,4 @@ public class MessageController {
         return test;
 
     }
-
-//    @MessageMapping({"/message"})
-//    public void greeting(String message) {
-//        System.out.println("ODEBRALEM PENIS");
-//        simpMessagingTemplate.convertAndSendToUser(String.valueOf(3), "/msg", ConversationDto.builder().id(1L).lastMessage("penis").avatarUrl("https://ocdn.eu/pulscms-transforms/1/LFmk9kuTURBXy9hYTdjMTMzMS0zMmVlLTQxN2YtODFiMS01YTM0NjI0YjhkMDkuanBlZ5GVAs0BigDDw4GhMAE").conversationName("nie wiem").build());
-//    }
-
-//    @MessageMapping({"/message"})
-//    public void greeting(MessageDto messageDto) {
-//        messageService.sendMessageToUser(messageDto.getOwnerId(), messageDto.getConversationId(), messageDto);
-//    }
 }
